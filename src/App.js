@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Toggle from './Toggle';
 
 const App = () => {
@@ -7,6 +7,10 @@ const App = () => {
   // const [value, setValue] = useState(initialState);
   const [name, setName] = useState('');
 
+  useEffect(() => {
+    document.title = name;
+  });
+
   return (
     <div className="main-wrapper">
       <h1>Level Up Dishes</h1>
@@ -14,7 +18,6 @@ const App = () => {
       <Toggle />
       <form onSubmit={(e) => {
         e.preventDefault();
-        formSubmit(name, setName);
       }}>
         <input
           type="text"
@@ -25,13 +28,6 @@ const App = () => {
       </form>
     </div>
   );
-};
-
-const formSubmit = (value, setValue) => {
-  console.log(`email sent to ${value}!`);
-  // Call to setValue clears the input 
-  // although called from a different function!
-  setValue('');
 };
 
 export default App;
