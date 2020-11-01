@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useMemo } from "react";
 import Toggle from "./Toggle";
 import useTitleInput from './hooks/useTitleInput';
 import Counter from './Counter';
@@ -10,11 +10,19 @@ const App = () => {
   const [title, setTitle] = useTitleInput('React Hooks (custom title)');   
 
   const ref = useRef();
-  console.log(ref.current);
+  
+  const reverseWord = (word) => {
+    console.log("function called");
+    return [...word].reverse().join(""); 
+  };
+
+  const header = 'Level Up Dishes';
+
+  const HeaderReversed = useMemo(() => reverseWord(title), [title]);
 
   return (
     <div className="main-wrapper" ref={ref}>
-      <h1>Level Up Dishes</h1>
+      <h1>{HeaderReversed}</h1>
       <Toggle />
       <Counter />
       <form
@@ -26,7 +34,7 @@ const App = () => {
           type="text"
           onChange={(e) => setTitle(e.target.value)}
           value={title}
-        />
+         />
         <button type="submit">Submit</button>
       </form>
     </div>
