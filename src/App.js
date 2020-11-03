@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useMemo } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Toggle from "./Toggle";
 import useTitleInput from './hooks/useTitleInput';
 import Counter from './Counter';
@@ -24,8 +24,8 @@ const App = () => {
   // useMemo(() => fetchDishes(), [dishes.length]);
 
   useEffect(() => {
-    // don't need?
-  });
+    fetchDishes();
+  }, []);
 
   return (
     <div className="main-wrapper" ref={ref}>
@@ -46,12 +46,12 @@ const App = () => {
       </form>
 
       {dishes.map((dish) => (
-        <article className="dish-card dish-card--withImage">
+        <article key={dish.name} className="dish-card dish-card--withImage">
           <h3>{dish.name}</h3>
           <p>{dish.desc}</p>
           <div className="ingredients">
             {dish.ingredients.map((ingredient) => (
-              <span>{ingredient}</span>
+              <span key={ingredient}>{ingredient}</span>
             ))}
           </div>
         </article>
