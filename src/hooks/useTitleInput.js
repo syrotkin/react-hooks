@@ -1,5 +1,5 @@
 // custom hook
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useDebugValue } from 'react';
 
 const useTitleInput = (initialValue) => {
     const [value, setValue] = useState(initialValue);
@@ -8,6 +8,8 @@ const useTitleInput = (initialValue) => {
       document.title = value;
     });
   
+    useDebugValue(value ? "Full" : "Empty");
+
     return  [value, setValue];
   };
 
