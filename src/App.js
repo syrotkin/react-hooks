@@ -7,13 +7,14 @@ const App = () => {
 
   // template: how to use useState
   // const [value, setValue] = useState(initialState);
-  const [title, setTitle] = useTitleInput('');   
+  const [name, setName] = useTitleInput('');   
 
   const ref = useRef();
   
   const [dishes, setDishes] = useState([]);
 
   const fetchDishes = async () => {
+    console.log('ran');
     const response = await fetch('https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes');
     const data = await response.json();
     console.log('fetched: ', data);
@@ -25,7 +26,7 @@ const App = () => {
 
   useEffect(() => {
     fetchDishes();
-  }, []);
+  }, [name]);
 
   return (
     <div className="main-wrapper" ref={ref}>
@@ -39,8 +40,8 @@ const App = () => {
       >
         <input
           type="text"
-          onChange={(e) => setTitle(e.target.value)}
-          value={title}
+          onChange={(e) => setName(e.target.value)}
+          value={name}
         />
         <button type="submit">Submit</button>
       </form>
