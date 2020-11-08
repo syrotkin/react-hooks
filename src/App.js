@@ -14,7 +14,6 @@ const App = () => {
   const [dishes, setDishes] = useState([]);
 
   const fetchDishes = async () => {
-    console.log('ran');
     const response = await fetch('https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes');
     const data = await response.json();
     console.log('fetched: ', data);
@@ -26,7 +25,7 @@ const App = () => {
 
   useEffect(() => {
     fetchDishes();
-  }, [name]);
+  }, []);
 
   return (
     <div className="main-wrapper" ref={ref}>
