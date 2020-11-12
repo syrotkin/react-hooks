@@ -1,31 +1,25 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import Toggle from "./Toggle";
 import useTitleInput from './hooks/useTitleInput';
 import Counter from './Counter';
+import useAbortableFetch from "use-abortable-fetch";
 
 const App = () => {
-
   // template: how to use useState
   // const [value, setValue] = useState(initialState);
-  const [name, setName] = useTitleInput('');   
+  const [name, setName] = useTitleInput("");
 
   const ref = useRef();
-  
-  const [dishes, setDishes] = useState([]);
 
-  const fetchDishes = async () => {
-    const response = await fetch('https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes');
-    const data = await response.json();
-    console.log('fetched: ', data);
-    setDishes(data);
-  };
+  const { data, loading } = useAbortableFetch(
+    "https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes"
+  );
 
-  // this works:
-  // useMemo(() => fetchDishes(), [dishes.length]);
+  console.log('data: ', data);
 
-  useEffect(() => {
-    fetchDishes();
-  }, []);
+   if (loading || !data) {
+     return <div>Loading...</div>;
+   }
 
   return (
     <div className="main-wrapper" ref={ref}>
@@ -45,7 +39,7 @@ const App = () => {
         <button type="submit">Submit</button>
       </form>
 
-      {dishes.map((dish) => (
+      {data.map((dish) => (
         <article key={dish.name} className="dish-card dish-card--withImage">
           <h3>{dish.name}</h3>
           <p>{dish.desc}</p>
