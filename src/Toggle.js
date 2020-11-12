@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import DishForm from './DishForm';
+import React, { useState } from "react";
+import DishForm from "./DishForm";
 
 const Toggle = () => {
+  const [isToggled, setToggled] = useState(false);
 
-    const [isToggled, setToggled] = useState(false);
-
-    return (
-        <div>
-            <button onClick={() => setToggled(!isToggled)}>Toggle</button>
-            {isToggled && <DishForm />}
-        </div>
-    );
+  return (
+    <div>
+      {isToggled ? (
+        <DishForm setToggled={setToggled} />
+      ) : (
+        <button onClick={() => setToggled(!isToggled)}>Open</button>
+      )}
+    </div>
+  );
 };
 
 export default Toggle;
 
-
 // import React, { Component } from "react";
-
 
 // export default class Refactor extends Component {
 //   state = {
