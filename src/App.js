@@ -3,6 +3,7 @@ import Toggle from "./Toggle";
 import useTitleInput from './hooks/useTitleInput';
 import Counter from './Counter';
 import useAbortableFetch from "use-abortable-fetch";
+import { useSpring, animated } from 'react-spring';
 
 const App = () => {
   // template: how to use useState
@@ -15,15 +16,13 @@ const App = () => {
     "https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes"
   );
 
-  console.log('data: ', data);
-
-   if (loading || !data) {
-     return <div>Loading...</div>;
-   }
+  // from react-spring
+  const props = useSpring({ opacity: 1, from: { opacity: 0 } });
+  console.log(props);
 
   return (
     <div className="main-wrapper" ref={ref}>
-      <h1>Level Up Dishes</h1>
+      <animated.h1 style={props}>Level Up Dishes</animated.h1>
       <Toggle />
       <Counter />
       <form
@@ -39,7 +38,7 @@ const App = () => {
         <button type="submit">Submit</button>
       </form>
 
-      {data.map((dish) => (
+      {data && data.map((dish) => (
         <article key={dish.name} className="dish-card dish-card--withImage">
           <h3>{dish.name}</h3>
           <p>{dish.desc}</p>
